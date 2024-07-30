@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Atualizar pacotes do sistema
+echo "Atualizando pacotes do sistema..."
+sudo apt-get update -y
+sudo apt-get upgrade -y
+
+# Instalar Apache
+echo "Instalando Apache..."
+sudo apt-get install apache2 -y
+
+# Iniciar e habilitar o serviço Apache
+echo "Iniciando e habilitando Apache..."
+sudo systemctl start apache2
+sudo systemctl enable apache2
+
+# Criar uma página HTML simples
+echo "Criando página HTML de teste..."
+echo "<!DOCTYPE html>
+<html>
+<head>
+    <title>Página de Teste</title>
+</head>
+<body>
+    <h1>Servidor Web Provisionado com Sucesso!</h1>
+    <p>Este é um teste do servidor web Apache.</p>
+</body>
+</html>" | sudo tee /var/www/html/index.html
+
+# Configurar firewall (opcional)
+echo "Configurando firewall..."
+sudo ufw allow 'Apache Full'
+sudo ufw enable
+
+echo "Provisionamento do servidor web concluído."
